@@ -46,8 +46,11 @@ def run_exercise():
         new_string = new_string.replace("b'xcoordinates%5B%5D=", "")
         new_string = new_string.replace("'", "")
         #Find the id
-        id_array = new_string.split("&id=", 1)
-        id_name = id_array[1]
+        id_name = re.search('&id=(.*)&counter=', new_string)
+        id_name = id_name.group(1)
+        #Find the excercise number
+        exc_num = new_string.split('&counter=',1)
+        exc_num = int(exc_num[1]) + 1
         #Removing the css characters
         new_string = re.sub('[a-z]', '', new_string)
         new_string = re.sub('[A-Z]', '', new_string)
@@ -61,11 +64,12 @@ def run_exercise():
         x_coordinates = numpy_array[0]
         y_coordinates = numpy_array[1]
         #Create a dictionary
-        coordinates_dict = {'x_coordinates':x_coordinates,'y_coordinates':y_coordinates,'id_name':id_name}
+        coordinates_dict = {'x_coordinates':x_coordinates,'y_coordinates':y_coordinates,'id_name':id_name, 'excercise_number':exc_num}
         #Create a Pandas dataFrame
-        new_data = pd.DataFrame(coordinates_dict, columns= ['x_coordinates','y_coordinates','id_name'])
+        new_data = pd.DataFrame(coordinates_dict, columns= ['x_coordinates','y_coordinates','id_name','excercise_number'])
         #Save it to a csv
         new_data = new_data.append(new_data)
+        filepath = '/home/pierret/helping_hand/User_data/coordinates{}{}.csv'.format(id_name,exc_num)
         new_data.to_csv(filepath, index = False, header=True)
-        return str(id_name)
+        return str(exc_num)
         #return str(y_coordinates)
