@@ -1,0 +1,73 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<h2>Proof of concept </h2>
+
+<p>
+{{id_info[0,0]}}
+</p>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+
+<center>
+    <table>
+    <th>id</th>
+    <th>ability</th>
+    {% for _, row in id_info.iterrows() %}
+    <tr>
+        <td><a href="/exercise?id={{row['id']}}">{{row['id']}}</a></td>
+        <td>{{row["ability"]}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</center>
+
+
+<form method="POST">
+
+        <br><br>
+        Name:
+        <input name="student_id_player" type="text" placeholder="">
+
+
+
+
+
+        <br><br>
+        Overall handwriting ability?
+        <select name="ability">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        </select>
+
+
+
+      <br><br>
+     <button type="submit"  >Submit</button>
+
+      <br><br>
+
+</form>
+
+<br><br>
+
+
+<style>
+h2 {text-align: center;}
+form {text-align: center;}
+
+html{
+    width:100%;
+    height:100%;
+}
+body{
+    width:100%;
+    height:100%;
+    background-color:#DDD;
+}
+</style>
