@@ -1,0 +1,107 @@
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+         #myDIV {
+            width: 432px;
+            height: 288px;
+            border: 1px solid black;
+          }
+    #container{
+        display:flex;
+        justify-content:center;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+
+    }
+    </style>
+
+</head>
+<body>
+<div id="container">
+    <p>Complete the excercise and click next</p>
+    <div  id="myDIV"  style="background-image: url('https://bit.ly/3roE2aL'); background-size:contain ">
+    </div>
+    <button id="next_image">Next</button>
+    <p id="x_coordinates"></p>
+    <p id="y_coordinates"></p>
+
+
+    <div>
+        <button id="postdata">Post Coordinates</button>
+    </div>
+
+        <script>
+        var z = 0;
+        var y_coords = [];
+        var x_coords = [];
+        var flag = false;
+        const urls = ["https://bit.ly/3roE2aL","https://bit.ly/3cmv61p","https://bit.ly/39dACRM"];
+        var counter = 0;
+
+        document.getElementById("myDIV").addEventListener("click", function() {
+            clickFunction();
+        });
+        document.getElementById("myDIV").addEventListener("mousemove", function(event) {
+            myFunction(event);
+        });
+
+
+        function myFunction(e) {
+            if(flag === true){
+            var x = e.clientX;
+            var y = e.clientY;
+            var coor = "Coordinates: (" + x + "," + y + ")";
+            x_coords.push(x);
+            y_coords.push(y);
+            document.getElementById("x_coordinates").innerHTML = x_coords[x_coords.length-1];
+            document.getElementById("y_coordinates").innerHTML = y_coords[y_coords.length-1];
+            }
+
+        }
+        function clickFunction() {
+            flag =! flag;
+
+        }
+
+
+        function PostCoordinates(xcoordinates, ycoordinates,id,counter){
+            var coordinates = {xcoordinates,ycoordinates,id,counter}
+            console.log(xcoordinates,ycoordinates,id,counter);
+            $.ajax({
+                url: '/exercise',
+                type: 'POST',
+                data: coordinates,
+                success: function (response) {
+                    debugger;
+                    alert(response);
+                }
+            })
+        }
+
+
+        $('#postdata').click(function(){
+            var url = window.location.href;
+            console.log(url)
+            var id = url.split("?id=")[1]
+            console.log(id)
+            PostCoordinates(x_coords,y_coords, id, counter)
+        })
+
+
+        $("#next_image").click(()=>{
+
+            if (counter === urls.length - 1){
+                counter = 0;
+            }else{counter++;}
+            console.log(counter)
+            var next = document.getElementById('myDIV');
+            next.style.backgroundImage = `url(${urls[counter]})`
+        })
+        </script>
+    </div>
+</div>
+</body>
+</html>
