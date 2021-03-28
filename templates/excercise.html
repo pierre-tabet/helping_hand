@@ -17,13 +17,28 @@
 
     }
     </style>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#myDIV').css('background-image',"url('https://bit.ly/3roE2aL')");
+        $('#myDIV').css('background-size',"contain");
+        $('#myDIV').css('background-repeat',"no-repeat");
 
+        $("#myDIV").mousedown(function (event) {
+        $(this).mousemove(function (e) {
+        myFunction(e);
+        });
+        }).mouseup(function () {
+        $(this).unbind('mousemove');
+        }).mouseout(function () {
+        $(this).unbind('mousemove');
+        });
+    });
+</script>
 </head>
 <body>
 <div id="container">
     <p>Complete the excercise and click next</p>
-    <div  id="myDIV"  style="background-image: url('https://bit.ly/3roE2aL'); background-size:contain ">
-    </div>
+    <div  id="myDIV"></div>
     <button id="next_image">Next</button>
     <p id="x_coordinates"></p>
     <p id="y_coordinates"></p>
@@ -41,16 +56,9 @@
         const urls = ["https://bit.ly/3roE2aL","https://bit.ly/3cmv61p","https://bit.ly/39dACRM"];
         var counter = 0;
 
-        document.getElementById("myDIV").addEventListener("click", function() {
-            clickFunction();
-        });
-        document.getElementById("myDIV").addEventListener("mousemove", function(event) {
-            myFunction(event);
-        });
-
 
         function myFunction(e) {
-            if(flag === true){
+            if( true){
             var x = e.clientX;
             var y = e.clientY;
             var coor = "Coordinates: (" + x + "," + y + ")";
