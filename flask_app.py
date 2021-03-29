@@ -7,7 +7,7 @@ import sys
 import re
 app = Flask(__name__)
 app.config["DEBUG"] = True
-
+#testing commit from atom
 @app.route('/', methods=['GET','POST'])
 def submit_score():
     if request.method=='GET':
