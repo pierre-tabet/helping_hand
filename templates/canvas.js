@@ -58,7 +58,17 @@ $(document).ready(function(){
         console.log(url)
         var id = url.split("?id=")[1]
         console.log(id)
-        PostCoordinates(x_coords,y_coords, id, counter)
+        var coordinates = {xcoordinates,ycoordinates,id,counter}
+        console.log(xcoordinates,ycoordinates,id,counter);
+        $.ajax({
+            url: '/index',
+            type: 'POST',
+            data: coordinates,
+            success: function (response) {
+                debugger;
+                alert(response);
+            }
+        })
     })
     $("#next_image").click(()=>{
         if (counter === urls.length - 1){
@@ -72,4 +82,6 @@ $(document).ready(function(){
           ctx.drawImage(base_image, 0, 0);
         }
     })
+
+
 });
