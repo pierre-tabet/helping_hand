@@ -51,3 +51,21 @@ window.addEventListener('load',()=>{
 
 
 });
+
+$(document).ready(function(){
+    $('#postdata').click(function(){
+        PostCoordinates(x_coords,y_coords)
+    })
+    $("#next_image").click(()=>{
+        if (counter === urls.length - 1){
+            counter = 0;
+            console.log(counter)
+        }else{counter++;}
+        base_image = new Image();
+        base_image.src = `${urls[counter]}`
+        console.log(base_image.src)
+        base_image.onload = function(){
+          ctx.drawImage(base_image, 0, 0);
+        }
+    })
+});
