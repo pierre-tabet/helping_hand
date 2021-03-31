@@ -54,7 +54,11 @@ window.addEventListener('load',()=>{
 
 $(document).ready(function(){
     $('#postdata').click(function(){
-        PostCoordinates(x_coords,y_coords)
+        var url = window.location.href;
+        console.log(url)
+        var id = url.split("?id=")[1]
+        console.log(id)
+        PostCoordinates(x_coords,y_coords, id, counter)
     })
     $("#next_image").click(()=>{
         if (counter === urls.length - 1){

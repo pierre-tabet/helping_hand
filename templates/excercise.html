@@ -20,9 +20,9 @@
   </div>
   <script>
 
-  function PostCoordinates(xcoordinates, ycoordinates){
-      var coordinates = {xcoordinates,ycoordinates}
-      console.log(xcoordinates,ycoordinates);
+  function PostCoordinates(xcoordinates, ycoordinates,id,counter){
+      var coordinates = {xcoordinates,ycoordinates,id,counter}
+      console.log(xcoordinates,ycoordinates,id,counter);
       $.ajax({
           url: '/index',
           type: 'POST',
@@ -37,4 +37,3 @@
   </script>
 </body>
 </html>
-
