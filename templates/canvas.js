@@ -52,24 +52,32 @@ window.addEventListener('load',()=>{
 
 });
 
+function PostCoordinates(xcoordinates, ycoordinates,id,counter){
+            var coordinates = {xcoordinates,ycoordinates,id,counter}
+            console.log(xcoordinates,ycoordinates,id,counter);
+            $.ajax({
+                url: '/index',
+                type: 'POST',
+                data: coordinates,
+                success: function (response) {
+                    debugger;
+                    alert(response);
+                }
+            })
+        }
+
 $(document).ready(function(){
     $('#postdata').click(function(){
         var url = window.location.href;
         console.log(url)
         var id = url.split("?id=")[1]
         console.log(id)
-        var coordinates = {xcoordinates,ycoordinates,id,counter}
-        console.log(xcoordinates,ycoordinates,id,counter);
-        $.ajax({
-            url: '/index',
-            type: 'POST',
-            data: coordinates,
-            success: function (response) {
-                debugger;
-                alert(response);
-            }
-        })
+        PostCoordinates(x_coords,y_coords, id, counter)
     })
+
+
+
+
     $("#next_image").click(()=>{
         if (counter === urls.length - 1){
             counter = 0;
