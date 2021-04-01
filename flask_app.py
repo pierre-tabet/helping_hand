@@ -28,10 +28,10 @@ def submit_score():
 
         return render_template('get_gamestats.html',id_info = data)
 
-@app.route('/exercise', methods=['GET','POST'])
+@app.route('/index', methods=['GET','POST'])
 def run_exercise():
     if request.method=='GET':
-        return render_template('exercise.html')
+        return render_template('index.html')
     else:
 
         filepath = '/home/pierret/helping_hand/coordinates.csv'
@@ -71,5 +71,4 @@ def run_exercise():
         new_data = new_data.append(new_data)
         filepath = '/home/pierret/helping_hand/User_data/coordinates{}{}.csv'.format(id_name,exc_num)
         new_data.to_csv(filepath, index = False, header=True)
-        return str(exc_num)
-        #return str(y_coordinates)
+        return "Data has successfully been submitted, continue to the next exercise"
