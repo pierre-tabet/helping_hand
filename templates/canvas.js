@@ -27,15 +27,16 @@ window.addEventListener('load',()=>{
         ctx.beginPath()
     }
     function draw(e){
+        var bx = e.target.getBoundingClientRect(),
+        x = e.clientX - bx.left;
+        y = e.clientY - bx.top;
         if(!painting) return;
-        var x = e.clientX;
-        var y = e.clientY;
         ctx.lineWidth = 10;
         ctx.lineCap = "round";
-        ctx.lineTo(e.clientX, e.clientY);
+        ctx.lineTo(x, y);
         ctx.stroke();
         ctx.beginPath();
-        ctx.moveTo(e.clientX, e.clientY);
+        ctx.moveTo(x, y);
         var coor = "Coordinates: (" + x + "," + y + ")";
         x_coords.push(x);
         y_coords.push(y);
