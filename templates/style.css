@@ -13,6 +13,7 @@
     text-align: center;
 }
 
-#canvas#canvas_window{
+#canvas_window{
     border: 2px solid black;
+    //test
 }
