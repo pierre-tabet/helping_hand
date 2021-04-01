@@ -1,9 +1,16 @@
 .myclass{
-    margin: 0;
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
     box-sizing: border-box;
-
-
+}
+.next_image_button{
+    text-align: center;
+}
+.post_data_button{
+    text-align: center;
 }
 
 #canvas#canvas_window{
