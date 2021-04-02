@@ -3,6 +3,7 @@ var y_coords = [];
 const urls = ["https://bit.ly/3roE2aL","https://bit.ly/3cmv61p","https://bit.ly/39dACRM"];
 var counter = 0;
 
+
 window.addEventListener('load',()=>{
     var canvas = document.getElementById('canvas_window')
     window.ctx = canvas.getContext('2d');
@@ -10,7 +11,8 @@ window.addEventListener('load',()=>{
     base_image = new Image();
     base_image.src = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png';
     base_image.onload = function(){
-      ctx.drawImage(base_image, 0, 0);
+      //ctx.drawImage(base_image, 0, 0);
+      ctx.drawImage(base_image, 0, 0, 432, 288 * base_image.height / base_image.width)
     }
     //Resize
     canvas.width = 432;
@@ -88,7 +90,8 @@ $(document).ready(function(){
         base_image.src = `${urls[counter]}`
         console.log(base_image.src)
         base_image.onload = function(){
-          ctx.drawImage(base_image, 0, 0);
+          //ctx.drawImage(base_image, 0, 0);
+          ctx.drawImage(base_image, 0, 0, 432, 288 * base_image.height / base_image.width)
         }
     })
 
