@@ -1,13 +1,12 @@
 var x_coords = [];
 var y_coords = [];
-const urls = ["https://bit.ly/3roE2aL","https://bit.ly/3cmv61p","https://bit.ly/39dACRM"];
+const urls = ["static/images/hline.png","static/images/triangle.png","static/images/squiggle_exc.jpg"];
 var counter = 0;
-
 
 window.addEventListener('load',()=>{
     var canvas = document.getElementById('canvas_window')
     window.ctx = canvas.getContext('2d');
-
+    ctx.canvas.style.touchAction = "none";
     base_image = new Image();
     base_image.src = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png';
     base_image.onload = function(){
@@ -18,8 +17,10 @@ window.addEventListener('load',()=>{
     canvas.width = 432;
     canvas.height = 288;
 
+
     //variables
     let painting = false;
+    var entering = 0;
 
     function startPosition(){
         painting = true;
@@ -42,14 +43,22 @@ window.addEventListener('load',()=>{
         var coor = "Coordinates: (" + x + "," + y + ")";
         x_coords.push(x);
         y_coords.push(y);
-        //document.getElementById("x_coordinates").innerHTML = x_coords[x_coords.length-1];
-        //document.getElementById("y_coordinates").innerHTML = y_coords[y_coords.length-1];
-        //console.log(x)
+
+
     }
     //Eventlisteners
-    canvas.addEventListener('mousedown', startPosition)
-    canvas.addEventListener('mouseup', finishedPosition)
-    canvas.addEventListener('mousemove', draw)
+    //canvas.addEventListener('pointerrawupdate', startPosition)
+    //canvas.addEventListener('pointerrawupdate', finishedPosition)
+    //canvas.addEventListener('pointermove', draw)
+
+
+    canvas.addEventListener('pointerdown', startPosition);
+    canvas.addEventListener('pointermove', draw);
+    canvas.addEventListener('pointerup', finishedPosition);
+    canvas.addEventListener('pointerleave', finishedPosition);
+
+
+
 
 
 
