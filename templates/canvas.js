@@ -1,6 +1,6 @@
 var x_coords = [];
 var y_coords = [];
-const urls = ["static/images/hline.png","static/images/triangle.png","static/images/squiggle_exc.jpg"];
+const urls = ["static/images/A4_Task_1.png","static/images/A4_Task_2.png","static/images/A4_Task_3.png","static/images/A4_Task_4.png"];
 var counter = 0;
 
 window.addEventListener('load',()=>{
@@ -8,7 +8,7 @@ window.addEventListener('load',()=>{
     window.ctx = canvas.getContext('2d');
     ctx.canvas.style.touchAction = "none";
     base_image = new Image();
-    base_image.src = 'https://homepages.cae.wisc.edu/~ece533/images/airplane.png';
+    base_image.src = 'static/images/A4_Task_1.png';
     base_image.onload = function(){
       //ctx.drawImage(base_image, 0, 0);
       ctx.drawImage(base_image, 0, 0, 432, 288 * base_image.height / base_image.width)
