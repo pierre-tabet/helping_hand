@@ -3,25 +3,26 @@ var y_coords = [];
 const urls = ["static/images/A4_Task_1.png","static/images/A4_Task_2.png","static/images/A4_Task_3.png","static/images/A4_Task_4.png"];
 var counter = 0;
 
+
 window.addEventListener('load',()=>{
     var canvas = document.getElementById('canvas_window')
     window.ctx = canvas.getContext('2d');
     ctx.canvas.style.touchAction = "none";
     base_image = new Image();
     base_image.src = 'static/images/A4_Task_1.png';
-    base_image.onload = function(){
-      //ctx.drawImage(base_image, 0, 0);
-      ctx.drawImage(base_image, 0, 0, 432, 288 * base_image.height / base_image.width)
-    }
-    //Resize
-    canvas.width = 432;
-    canvas.height = 288;
 
+    //Resize
+    canvas.width = 853;
+    canvas.height = 535;
 
     //variables
     let painting = false;
     var entering = 0;
 
+    base_image.onload = function(){
+      ctx.clearRect(0, 0, 853,535);
+      ctx.drawImage(base_image, 0, 0, canvas.width, canvas.height)
+    }
     function startPosition(){
         painting = true;
     }
@@ -81,10 +82,13 @@ function PostCoordinates(xcoordinates, ycoordinates,id,counter){
 $(document).ready(function(){
     $('#postdata').click(function(){
         var url = window.location.href;
-        console.log(url)
+        console.log(url);
         var id = url.split("?id=")[1]
-        console.log(id)
-        PostCoordinates(x_coords,y_coords, id, counter)
+        console.log(id);
+        PostCoordinates(x_coords,y_coords, id, counter);
+        x_coords = [];
+        y_coords = [];
+
     })
 
 
@@ -100,7 +104,8 @@ $(document).ready(function(){
         console.log(base_image.src)
         base_image.onload = function(){
           //ctx.drawImage(base_image, 0, 0);
-          ctx.drawImage(base_image, 0, 0, 432, 288 * base_image.height / base_image.width)
+          ctx.clearRect(0, 0, 853,535);
+          ctx.drawImage(base_image, 0, 0, 853,535);
         }
     })
 
