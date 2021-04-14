@@ -1,6 +1,8 @@
 var x_coords = [];
 var y_coords = [];
-const urls = ["static/images/A4_Task_1.png","static/images/A4_Task_2.png","static/images/A4_Task_3.png","static/images/A4_Task_4.png"];
+const urls = ["static/images/Skyscraper_task.png","static/images/Skyscraper_task_2.png","static/images/Mouse_task.png","static/images/Connect_the_dots.png"];
+const numb_of_let_ex = 26
+const letters_array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 var counter = 0;
 
 
@@ -9,7 +11,10 @@ window.addEventListener('load',()=>{
     window.ctx = canvas.getContext('2d');
     ctx.canvas.style.touchAction = "none";
     base_image = new Image();
-    base_image.src = 'static/images/A4_Task_1.png';
+    base_image.src = 'static/images/Skyscraper_task.png';
+
+    //update the letter exc
+    document.getElementById("letter").innerHTML = letters_array[counter];
 
     //Resize
     canvas.width = 853;
@@ -21,7 +26,7 @@ window.addEventListener('load',()=>{
 
     base_image.onload = function(){
       ctx.clearRect(0, 0, 853,535);
-      ctx.drawImage(base_image, 0, 0, canvas.width, canvas.height)
+      //ctx.drawImage(base_image, 0, 0, canvas.width, canvas.height)
     }
     function startPosition(){
         painting = true;
@@ -47,10 +52,6 @@ window.addEventListener('load',()=>{
 
 
     }
-    //Eventlisteners
-    //canvas.addEventListener('pointerrawupdate', startPosition)
-    //canvas.addEventListener('pointerrawupdate', finishedPosition)
-    //canvas.addEventListener('pointermove', draw)
 
 
     canvas.addEventListener('pointerdown', startPosition);
@@ -95,18 +96,23 @@ $(document).ready(function(){
 
 
     $("#next_image").click(()=>{
-        if (counter === urls.length - 1){
-            counter = 0;
-            console.log(counter)
-        }else{counter++;}
-        base_image = new Image();
-        base_image.src = `${urls[counter]}`
-        console.log(base_image.src)
-        base_image.onload = function(){
-          //ctx.drawImage(base_image, 0, 0);
-          ctx.clearRect(0, 0, 853,535);
-          ctx.drawImage(base_image, 0, 0, 853,535);
+        if (counter < numb_of_let_ex-1){
+            counter++;
+            console.log(counter);
+            ctx.clearRect(0, 0, 853,535);
+        }else{
+            counter++;
+            base_image = new Image();
+            base_image.src = `${urls[counter - numb_of_let_ex]}`
+            console.log(base_image.src)
+            base_image.onload = function(){
+            //ctx.drawImage(base_image, 0, 0);
+            ctx.clearRect(0, 0, 853,535);
+            ctx.drawImage(base_image, 0, 0, 853,535);
+            }
         }
+    //update the letter exc
+    document.getElementById("letter").innerHTML = letters_array[counter];
     })
 
 
