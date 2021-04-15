@@ -5,6 +5,15 @@ const numb_of_let_ex = 26
 const letters_array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 var counter = 0;
 
+var log_start;
+var record;
+var initial_time;
+var number_of_strokes = 0;
+var point_time_log = [];
+var total_time_log = [];
+
+
+
 
 window.addEventListener('load',()=>{
     var canvas = document.getElementById('canvas_window')
@@ -30,10 +39,13 @@ window.addEventListener('load',()=>{
     }
     function startPosition(){
         painting = true;
+        initial_time = new Date();
+        total_time_log.push(initial_time);
+        number_of_strokes++;
     }
     function finishedPosition(){
         painting = false;
-        ctx.beginPath()
+        ctx.beginPath();
     }
     function draw(e){
         var bx = e.target.getBoundingClientRect(),
@@ -46,19 +58,19 @@ window.addEventListener('load',()=>{
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(x, y);
-        var coor = "Coordinates: (" + x + "," + y + ")";
+        //Time
+        log_start = new Date();
+        total_time_log.push(log_start);
         x_coords.push(x);
         y_coords.push(y);
-
-
+        point_time_log.push(total_time_log[total_time_log.length - 1] - total_time_log[total_time_log.length - 2]);
+        console.log(point_time_log + " ms");
     }
 
 
     canvas.addEventListener('pointerdown', startPosition);
     canvas.addEventListener('pointermove', draw);
     canvas.addEventListener('pointerup', finishedPosition);
-    canvas.addEventListener('pointerleave', finishedPosition);
-
 
 
 
@@ -67,8 +79,8 @@ window.addEventListener('load',()=>{
 });
 
 function PostCoordinates(xcoordinates, ycoordinates,id,counter){
-            var coordinates = {xcoordinates,ycoordinates,id,counter}
-            console.log(xcoordinates,ycoordinates,id,counter);
+            var coordinates = {xcoordinates,ycoordinates,id,counter,point_time_log, number_of_strokes}
+            console.log(xcoordinates,ycoordinates,id,counter,point_time_log, number_of_strokes);
             $.ajax({
                 url: '/index',
                 type: 'POST',
@@ -86,9 +98,11 @@ $(document).ready(function(){
         console.log(url);
         var id = url.split("?id=")[1]
         console.log(id);
-        PostCoordinates(x_coords,y_coords, id, counter);
+        PostCoordinates(x_coords,y_coords, id, counter, point_time_log, number_of_strokes);
         x_coords = [];
         y_coords = [];
+        point_time_log = [];
+        number_of_strokes = 0;
 
     })
 
