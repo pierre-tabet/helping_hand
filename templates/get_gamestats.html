@@ -18,7 +18,7 @@
     <th>ability</th>
     {% for _, row in id_info.iterrows() %}
     <tr>
-        <td><a href="/exercise?id={{row['id']}}">{{row['id']}}</a></td>
+        <td><a href="/index?id={{row['id']}}">{{row['id']}}</a></td>
         <td>{{row["ability"]}}</td>
     </tr>
     {% endfor %}
