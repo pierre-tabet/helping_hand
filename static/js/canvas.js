@@ -1,7 +1,18 @@
 var x_coords = [];
 var y_coords = [];
-const urls = ["static/images/A4_Task_1.png","static/images/A4_Task_2.png","static/images/A4_Task_3.png","static/images/A4_Task_4.png"];
+const urls = ["static/images/Skyscraper_task.png","static/images/Skyscraper_task_2.png","static/images/Mouse_task.png","static/images/Connect_the_dots.png"];
+const numb_of_let_ex = 26
+const letters_array = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 var counter = 0;
+
+var log_start;
+var record;
+var initial_time;
+var number_of_strokes = 0;
+var point_time_log = [];
+var total_time_log = [];
+
+
 
 
 window.addEventListener('load',()=>{
@@ -9,7 +20,10 @@ window.addEventListener('load',()=>{
     window.ctx = canvas.getContext('2d');
     ctx.canvas.style.touchAction = "none";
     base_image = new Image();
-    base_image.src = 'static/images/A4_Task_1.png';
+    base_image.src = 'static/images/Skyscraper_task.png';
+
+    //update the letter exc
+    document.getElementById("letter").innerHTML = letters_array[counter];
 
     //Resize
     canvas.width = 853;
@@ -21,14 +35,17 @@ window.addEventListener('load',()=>{
 
     base_image.onload = function(){
       ctx.clearRect(0, 0, 853,535);
-      ctx.drawImage(base_image, 0, 0, canvas.width, canvas.height)
+      //ctx.drawImage(base_image, 0, 0, canvas.width, canvas.height)
     }
     function startPosition(){
         painting = true;
+        initial_time = new Date();
+        total_time_log.push(initial_time);
+        number_of_strokes++;
     }
     function finishedPosition(){
         painting = false;
-        ctx.beginPath()
+        ctx.beginPath();
     }
     function draw(e){
         var bx = e.target.getBoundingClientRect(),
@@ -41,23 +58,19 @@ window.addEventListener('load',()=>{
         ctx.stroke();
         ctx.beginPath();
         ctx.moveTo(x, y);
-        var coor = "Coordinates: (" + x + "," + y + ")";
+        //Time
+        log_start = new Date();
+        total_time_log.push(log_start);
         x_coords.push(x);
         y_coords.push(y);
-
-
+        point_time_log.push(total_time_log[total_time_log.length - 1] - total_time_log[total_time_log.length - 2]);
+        console.log(point_time_log + " ms");
     }
-    //Eventlisteners
-    //canvas.addEventListener('pointerrawupdate', startPosition)
-    //canvas.addEventListener('pointerrawupdate', finishedPosition)
-    //canvas.addEventListener('pointermove', draw)
 
 
     canvas.addEventListener('pointerdown', startPosition);
     canvas.addEventListener('pointermove', draw);
     canvas.addEventListener('pointerup', finishedPosition);
-    canvas.addEventListener('pointerleave', finishedPosition);
-
 
 
 
@@ -66,8 +79,8 @@ window.addEventListener('load',()=>{
 });
 
 function PostCoordinates(xcoordinates, ycoordinates,id,counter){
-            var coordinates = {xcoordinates,ycoordinates,id,counter}
-            console.log(xcoordinates,ycoordinates,id,counter);
+            var coordinates = {xcoordinates,ycoordinates,id,counter,point_time_log, number_of_strokes}
+            console.log(xcoordinates,ycoordinates,id,counter,point_time_log, number_of_strokes);
             $.ajax({
                 url: '/index',
                 type: 'POST',
@@ -85,9 +98,11 @@ $(document).ready(function(){
         console.log(url);
         var id = url.split("?id=")[1]
         console.log(id);
-        PostCoordinates(x_coords,y_coords, id, counter);
+        PostCoordinates(x_coords,y_coords, id, counter, point_time_log, number_of_strokes);
         x_coords = [];
         y_coords = [];
+        point_time_log = [];
+        number_of_strokes = 0;
 
     })
 
@@ -95,18 +110,23 @@ $(document).ready(function(){
 
 
     $("#next_image").click(()=>{
-        if (counter === urls.length - 1){
-            counter = 0;
-            console.log(counter)
-        }else{counter++;}
-        base_image = new Image();
-        base_image.src = `${urls[counter]}`
-        console.log(base_image.src)
-        base_image.onload = function(){
-          //ctx.drawImage(base_image, 0, 0);
-          ctx.clearRect(0, 0, 853,535);
-          ctx.drawImage(base_image, 0, 0, 853,535);
+        if (counter < numb_of_let_ex-1){
+            counter++;
+            console.log(counter);
+            ctx.clearRect(0, 0, 853,535);
+        }else{
+            counter++;
+            base_image = new Image();
+            base_image.src = `${urls[counter - numb_of_let_ex]}`
+            console.log(base_image.src)
+            base_image.onload = function(){
+            //ctx.drawImage(base_image, 0, 0);
+            ctx.clearRect(0, 0, 853,535);
+            ctx.drawImage(base_image, 0, 0, 853,535);
+            }
         }
+    //update the letter exc
+    document.getElementById("letter").innerHTML = letters_array[counter];
     })
 
 

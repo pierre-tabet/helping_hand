@@ -45,6 +45,17 @@ def run_exercise():
         new_string = new_string.replace("&ycoordinates%5B%5D=", ",")
         new_string = new_string.replace("b'xcoordinates%5B%5D=", "")
         new_string = new_string.replace("'", "")
+        #Find number of strokes
+        number_of_strokes = new_string.split('&number_of_strokes=',1)
+        new_string = number_of_strokes[0]
+        number_of_strokes = number_of_strokes[1]
+        #Find the time data
+        time_data = new_string.split('&point_time_log%5B%5D=',1)
+        new_string = time_data[0]
+        time_data = time_data[1]
+        time_data = time_data.replace("&point_time_log%5B%5D=", ",")
+        time_data_list = time_data.split(',') #Split a string into a list
+        time_array = np.array(time_data_list)
         #Find the id
         id_name = re.search('&id=(.*)&counter=', new_string)
         id_name = id_name.group(1)
@@ -64,11 +75,17 @@ def run_exercise():
         x_coordinates = numpy_array[0]
         y_coordinates = numpy_array[1]
         #Create a dictionary
-        coordinates_dict = {'x_coordinates':x_coordinates,'y_coordinates':y_coordinates,'id_name':id_name, 'excercise_number':exc_num}
+        coordinates_dict = {'x_coordinates':x_coordinates,'y_coordinates':y_coordinates,'number_of_strokes':number_of_strokes,'time':time_array,'id_name':id_name, 'excercise_number':exc_num}
         #Create a Pandas dataFrame
-        new_data = pd.DataFrame(coordinates_dict, columns= ['x_coordinates','y_coordinates','id_name','excercise_number'])
+        new_data = pd.DataFrame(coordinates_dict, columns= ['x_coordinates','y_coordinates','number_of_strokes','time','id_name','excercise_number'])
         #Save it to a csv
         new_data = new_data.append(new_data)
         filepath = '/home/pierret/helping_hand/User_data/coordinates{}{}.csv'.format(id_name,exc_num)
         new_data.to_csv(filepath, index = False, header=True)
+
+        return str(number_of_strokes)
+        #return "Data has successfully been submitted, continue to the next exercise"
+
+
+        #return str(number_of_strokes)
         return "Data has successfully been submitted, continue to the next exercise"
