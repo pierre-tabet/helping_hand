@@ -8,7 +8,7 @@ A handwriting robotic platform was developed aimed at measuring current handwrit
 ![MicrosoftTeams-image](https://user-images.githubusercontent.com/60051148/124467608-fc6d1080-dd8f-11eb-9064-ab36186484de.jpeg)
 
 As the lead software engineer, I created a CNN using fastai and pytorch to assess handwriting abilities. By utilising Dynamic difficulty adjustments (DDAs), the system was able to adapt the difficulty of the exercises provided in real time  This ensures a child will not feel frustrated or bored whilst providing them with a challenging enough experience to keep them engaged until the end of the exercises. Traditional handwriting exercise books increase in difficulty in a stepwise manner. This often leads to a negative experience as the child will attempt to map a “ pre-decided learning curve”. In order to provide a DDA experience and increase the time spent exercising it was decided to incorporate a tablet computer into the project. Tablets are increasingly being recommended by doctors for handwriting practice because they encourage independence, a key part of therapy. 
-More can details can be found at https://pierretabet.com/helping-hand
+More can details can be found at: https://pierretabet.com/helping-hand
 
 ![IMG_5581](https://user-images.githubusercontent.com/60051148/124469425-448d3280-dd92-11eb-8b7b-fce026f312d8.jpeg)
 
